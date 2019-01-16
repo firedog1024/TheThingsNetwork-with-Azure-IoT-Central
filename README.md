@@ -1,1 +1,1 @@
-# ThjeThingsNetwork-with-Azure-IoT-Central
+# TheThingsNetwork with Azure IoT Central
