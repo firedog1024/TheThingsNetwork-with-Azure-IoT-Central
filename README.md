@@ -39,11 +39,16 @@ Now we need to grab the library for the Things Node device.  Sketch -> Include L
 
 ## Getting setup on The Things Network
 
+### For the The Things Node device
+
 Now that we have our development environment setup we need to setup an account on The Things Network (if you don't have one already) and then create an application and register our device.  Follow the instructions here https://www.thethingsnetwork.org/docs/devices/node/quick-start.html#get-your-device-eui thru **Register your Device**.  After doing this your device will be registered on The Things Network and you should have both an App EUI and a App Key.  If you look at the bootom of the device information page you should see EXAMPLE CODE you can copy the code in the text box for use in the sample code.
 
 ![Example code](https://github.com/firedog1024/TheThingsNetwork-with-Azure-IoT-Central/raw/master/assets/examplecode.png)
 
 ## Sending data from the device
+
+### For the The Things Node device
+
 
 
 
