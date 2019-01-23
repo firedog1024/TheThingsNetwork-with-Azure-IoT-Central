@@ -242,6 +242,85 @@ Click the template name you created earlier in the left hand rail and you should
 
 ![Azure IoT Central data flowing](https://github.com/firedog1024/TheThingsNetwork-with-Azure-IoT-Central/raw/master/assets/data-flowing.png)
 
+## Troubleshooting
+
+There could be an error in several places as we are making three pieces of software interact.  Here is my debugging work flow from device to IoT Central.
+
+1. Is the data being sent from the device.  Open up the Serial Monitor in the Arduino IDE (baud rate:57600) and make sure that when you click the button data gets sent, the device may have gone inactive after a period of time to save battery. You should see something similar to below.  If you do not see data flowing then recompile the code and upload to the device and check that the right device type and port are selected.
+
+    ```
+    -- SEND: BUTTON (duration:  299ms)
+    EUI: 0004A30B001B4D4C
+    Battery: 3304
+    AppEUI: 70B3D57ED00149CA
+    DevEUI: 0004A30B001B4D4C
+    Data Rate: 3
+    RX Delay 1: 1000
+    RX Delay 2: 2000
+    Light: 24
+    Temperature: 24.81 C
+    Temperature alert: Yes
+    Moving: No
+    Button pressed: Yes
+    Color: Blue
+    USB connected: Yes
+    Battery voltage: 4762 MV
+    Acceleration (x,y,z): (-0.95,0.05,0.24)
+    Sending: mac tx uncnf 4 12A0001909B1FFA10005001702
+    Successful transmission
+    Sending: sys sleep 60000
+    -- SEND: INTERVAL
+    EUI: 0004A30B001B4D4C
+    Battery: 3304
+    AppEUI: 70B3D57ED00149CA
+    DevEUI: 0004A30B001B4D4C
+    Data Rate: 3
+    RX Delay 1: 1000
+    RX Delay 2: 2000
+    Light: 39
+    Temperature: 24.81 C
+    Temperature alert: Yes
+    Moving: No
+    Button pressed: No
+    Color: Blue
+    USB connected: Yes
+    Battery voltage: 4768 MV
+    Acceleration (x,y,z): (-0.96,0.06,0.25)
+    Sending: mac tx uncnf 2 12A0002709B1FFA10005001902
+    Successful transmission
+    Sending: sys sleep 60000
+    ```  
+
+2. Make sure that the data is getting to The Things Network application.  Check the "Data" tab to make sure data shows up and is being decoded correctly.  If no data is flowing make sure you have registered the device with your application and changed the appEUI and appKey in the Arduino code to the right values for your application.  
+
+    If the fields are corrupted or empty then there could be an issue twith the decoder function.  Go to the "Payload Formats" tab and paste a raw payload into the payload text box and click the "Test" button.  Did it decode correctly?  If not then debug the decoder function until you get the desired output.
+
+3. Make sure you have an HTTP integration setup and configured correctly in the "Integrations" tab. This is needed to send the data to the Azure function for the Azure IoT Central Device Bridge, check the URL is correct and that the Method is set to "POST".
+
+4. Go to the Azure function in the Azure portal and click the "Logs" button at the bottom of the window.  Every time the device sends data you should see messages output to the log.  
+    ```
+    2019-01-23T19:05:03  Welcome, you are now connected to log-streaming service.
+    2019-01-23T19:05:10.353 [Information] Executing 'Functions.IoTCIntegration' (Reason='This function was programmatically called via the host APIs.', Id=389283b6-7371-447d-b456-dd9c9809fc7d)
+    2019-01-23T19:05:10.365 [Information] [HTTP] Sending telemetry for device frogman-node
+    2019-01-23T19:05:10.444 [Information] Executed 'Functions.IoTCIntegration' (Succeeded, Id=389283b6-7371-447d-b456-dd9c9809fc7d)
+    2019-01-23T19:05:28.478 [Information] Executing 'Functions.IoTCIntegration' (Reason='This function was programmatically called via the host APIs.', Id=bbd069bc-a5cd-4edf-bec1-0364a1657720)
+    2019-01-23T19:05:28.489 [Information] [HTTP] Sending telemetry for device frogman-node
+    2019-01-23T19:05:28.532 [Information] Executed 'Functions.IoTCIntegration' (Succeeded, Id=bbd069bc-a5cd-4edf-bec1-0364a1657720)
+    2019-01-23T19:06:31.066 [Information] Executing 'Functions.IoTCIntegration' (Reason='This function was programmatically called via the host APIs.', Id=f35ff93f-e59c-4eee-aae1-b2a32cd77d57)
+    2019-01-23T19:06:31.077 [Information] [HTTP] Sending telemetry for device frogman-node
+    2019-01-23T19:06:31.140 [Information] Executed 'Functions.IoTCIntegration' (Succeeded, Id=f35ff93f-e59c-4eee-aae1-b2a32cd77d57)
+    2019-01-23T19:07:33.605 [Information] Executing 'Functions.IoTCIntegration' (Reason='This function was programmatically called via the host APIs.', Id=e613039e-b768-45e8-839c-9a0f694584d2)
+    ```
+
+    You may need to click the "Reconnect" button or refresh the page to get the logs to start flowing.  If you see errors in the log then you have a bug in the code you have added.  If you want to see what you are receiving from The Things Network add the following line just after the 'try {' line (currently line:20)
+
+    ```
+    context.log(req.body);
+    ```
+5. In your Azure IoT Central application make sure you have associated the device with a device template and the device is not stuck in the unassociated state awiting your approval.  Assuming you have associated but are not seeing all your data make sure you have clicked the eyeballs next to the measures so they are displayed on the graph.  Currently the selection of eyeballs is not preserved as state so you have to keep clicking them, bug fix coming shortly I hear :-)
+
+Thats my list of troubleshooting steps, I'll update this further if I see people file Github issues having specific areas of difficulty.  The Github Issues area is also a great place to see if anyone else has had a similar issue to yours and either pile on the issue or see if has a resolution.  I'll try to be proactive on keeping up on issues.
+    
 
 ## What now?
 
