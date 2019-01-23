@@ -1,8 +1,8 @@
 #include <TheThingsNode.h>
 
 // Set your AppEUI and AppKey from the application afer registering the device
-const char *appEui = "70B3D57ED00149CA";
-const char *appKey = "8F4CF2D0D545D8881A43A3665949DA75";
+const char *appEui = "0000000000000000";
+const char *appKey = "00000000000000000000000000000000";
 
 #define loraSerial Serial1
 #define debugSerial Serial
