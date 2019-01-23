@@ -243,6 +243,20 @@ Click the template name you created earlier in the left hand rail and you should
 ![Azure IoT Central data flowing](https://github.com/firedog1024/TheThingsNetwork-with-Azure-IoT-Central/raw/master/assets/data-flowing.png)
 
 
+## What now?
+
+Thats it you have connected a Things Node to The Things Network and connected it to an Azure IoT Central application with just a few lines of code.  You now have all the power of Azure IoT Central at your disposal.  Meaning you can set rules and actions using Microsoft Flow (https://docs.microsoft.com/en-us/azure/iot-central/howto-add-microsoft-flow) or Azure Logic Apps (https://docs.microsoft.com/en-us/azure/iot-central/howto-build-azure-logic-apps), visualize your data in Power BI (https://docs.microsoft.com/en-us/azure/iot-central/howto-connect-powerbi), or pipe data to other Azure Services via IoT Central data export (https://docs.microsoft.com/en-us/azure/iot-central/howto-export-data).  
+
+### Things to try:
+
+* Hack up the code and customize it to your needs, add more sensors (using The Things Network Uno) or change what the button press represents (door bell, garage opener, assistance needed, etc).
+* Modify the IoT Central Bridge's Azure function to send more telemetry items to IoT central
+* Modify the decoder function on The Things Network application to send a different payload.
+* Be creative and if you create something cool share the code on Github.
+
+
+
+
 
 
 
