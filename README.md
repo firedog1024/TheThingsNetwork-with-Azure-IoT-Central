@@ -240,6 +240,9 @@ We need to tell IoT Central what template to associate with this device so in th
 
 Click the template name you created earlier in the left hand rail and you should see the device listed below the simulated device.  If you click on the device you should start to see data on the graph after a minute or so.
 
+![Azure IoT Central data flowing](https://github.com/firedog1024/TheThingsNetwork-with-Azure-IoT-Central/raw/master/assets/data-flowing.png)
+
+
 
 
 
