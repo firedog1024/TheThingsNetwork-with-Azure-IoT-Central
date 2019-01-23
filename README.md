@@ -45,6 +45,8 @@ Now that we have our development environment setup we need to setup an account o
 
 ![Example code](https://github.com/firedog1024/TheThingsNetwork-with-Azure-IoT-Central/raw/master/assets/examplecode.png)
 
+**Note:** When choosing a name for your device please only use lowercase letters, numbers, and hyphens.  This is a current limitation of the Device Provisioning Service device naming schema.
+
 ## Sending data from the device
 
 ### For the The Things Node device
