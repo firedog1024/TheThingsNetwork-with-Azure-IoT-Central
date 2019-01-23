@@ -324,7 +324,11 @@ Thats my list of troubleshooting steps, I'll update this further if I see people
 
 ## What now?
 
-Thats it you have connected a Things Node to The Things Network and connected it to an Azure IoT Central application with just a few lines of code.  You now have all the power of Azure IoT Central at your disposal.  Meaning you can set rules and actions using Microsoft Flow (https://docs.microsoft.com/en-us/azure/iot-central/howto-add-microsoft-flow) or Azure Logic Apps (https://docs.microsoft.com/en-us/azure/iot-central/howto-build-azure-logic-apps), visualize your data in Power BI (https://docs.microsoft.com/en-us/azure/iot-central/howto-connect-powerbi), or pipe data to other Azure Services via IoT Central data export (https://docs.microsoft.com/en-us/azure/iot-central/howto-export-data).  
+Thats it you have connected a Things Node to The Things Network and connected it to an Azure IoT Central application with just a few lines of code.  You now have all the power of Azure IoT Central at your disposal.  so you can:
+* Set rules and actions using Microsoft Flow (https://docs.microsoft.com/en-us/azure/iot-central/howto-add-microsoft-flow) or Azure Logic Apps (https://docs.microsoft.com/en-us/azure/iot-central/howto-build-azure-logic-apps)
+* Visualize your data in Power BI (https://docs.microsoft.com/en-us/azure/iot-central/howto-connect-powerbi)
+* Pipe data to other Azure Services via IoT Central data export (https://docs.microsoft.com/en-us/azure/iot-central/howto-export-data)
+* Plus many other things (https://docs.microsoft.com/en-us/azure/iot-central/)
 
 ### Things to try:
 
