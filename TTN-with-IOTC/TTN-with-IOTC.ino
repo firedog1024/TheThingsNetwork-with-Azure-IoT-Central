@@ -23,62 +23,7 @@ TheThingsNode *node;
 #define ALERT_MAX_TEMP      24   // max temperature in degC for alert
 #define ALERT_CRITICAL_TEMP 30   // temperature in degC when critical
 
-/*
-Decoder payload function
-------------------------
-
-function isBitSet(byte, bitOffset) {
-  if (byte & (0x01 << (bitOffset - 1)))
-    return true;
-  else
-    return false;
-}
-
-function processFloat(bytes, offset) {
-  if (bytes[offset] & 0x80)
-    retVal = ((0xffff << 16) + (bytes[offset] << 8) + bytes[offset+1]) / 100;
-  else
-    retVal = ((bytes[offset] << 8) + bytes[offset+1]) / 100;
-  return retVal;
-}
-
-function Decoder(bytes, port) {
-  var decoded = {};
-  var events = {
-    1: 'setup',
-    2: 'interval',
-    3: 'motion',
-    4: 'button'
-  };
-  decoded.event = events[port];
-  decoded.battery = (bytes[0] << 8) + bytes[1];
-  decoded.light = (bytes[2] << 8) + bytes[3];
-  decoded.temperature = processFloat(bytes, 4);
-  decoded.accelerationX = processFloat(bytes, 6);
-  decoded.accelerationY = processFloat(bytes, 8);
-  decoded.accelerationZ = processFloat(bytes, 10);
-  
-  //if (bytes[12] & 0x01)
-  //  decoded.isMoving = true;
-  //else
-  //  decoded.isMoving = false;
-  
-  decoded.isMoving = isBitSet(bytes[12], 1)?'moving':'stopped';
-  
-  //  if (bytes[12] & 0x02)
-  //  decoded.tempAlert = true;
-  //else
-  //  decoded.tempAlert = false;
-  
-  if (isBitSet(bytes[12], 3)) {
-    decoded.tempAlert = 'critical';
-  } else {
-    decoded.tempAlert = isBitSet(bytes[12], 2)?'alert':'normal';
-  }
-  
-  return decoded;
-}
-*/
+// decoder code in decoder.js in "The Things Network" folder
 
 // called at device startup
 void setup()
