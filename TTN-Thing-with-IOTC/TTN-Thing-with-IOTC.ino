@@ -23,8 +23,6 @@ TheThingsNode *node;
 #define ALERT_MAX_TEMP      24   // max temperature in degC for alert
 #define ALERT_CRITICAL_TEMP 30   // temperature in degC when critical
 
-// decoder code in decoder.js in "The Things Network" folder
-
 // called at device startup
 void setup()
 {

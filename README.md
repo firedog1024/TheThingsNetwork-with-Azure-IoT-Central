@@ -51,7 +51,7 @@ Now that we have our development environment setup we need to setup an account o
 
 ### For the The Things Node device
 
-Load the TTN-with-IOTC.ino file into the Arduino IDE and change the values of the appEui and appKey to those copied from the EXAMPLE CODE in the code:
+Load the TTN-Thing-with-IOTC.ino file into the Arduino IDE and change the values of the appEui and appKey to those copied from the EXAMPLE CODE in the code:
 
 ```
 // Set your AppEUI and AppKey from the application afer registering the device
