@@ -16,7 +16,7 @@ Learn how to get a The Things Network device connected to Azure IoT Central via 
 
 We will be utilizing The Things Network Node device for this tutorial.  Details on the device and getting started can be found here: https://www.thethingsnetwork.org/docs/devices/node/.  You can use other LoRaWAN devices as well including The Things Network Uno and Pycom LoPy.  Over time we will try and add sample code for those devices as well.  Remember when purchasing devices for use to take note of the radio frequency of the device and ensure it will work in your region of the world.
 
-If you are not in range of a public The Things Netork gateway you will also need to purchase or build a Things Network compatible gateway.  Details on how to get started with a compatible gateway can be found here https://www.thethingsnetwork.org/docs/gateways/.  We've setup both a RAK831 on a Raspberry Pi 3 and used The Things Newtwork Gateway.  Both worked great but the TTN device is much more plug and play and hence my prefered goto gateway.
+If you are not in range of a public The Things Network gateway you will also need to purchase or build a Things Network compatible gateway.  Details on how to get started with a compatible gateway can be found here https://www.thethingsnetwork.org/docs/gateways/.  We've setup both a RAK831 on a Raspberry Pi 3 and used The Things Network Gateway.  Both worked great but the TTN device is much more plug and play and hence my prefered goto gateway.
 
 
 ## Setting up your Arduino development environment
@@ -41,7 +41,7 @@ Now we need to grab the library for the Things Node device.  Sketch -> Include L
 
 ### For the The Things Node device
 
-Now that we have our development environment setup we need to setup an account on The Things Network (if you don't have one already) and then create an application and register our device.  Follow the instructions here https://www.thethingsnetwork.org/docs/devices/node/quick-start.html#get-your-device-eui thru **Register your Device**.  After doing this your device will be registered on The Things Network and you should have both an App EUI and a App Key.  If you look at the bootom of the device information page you should see EXAMPLE CODE you can copy the code in the text box for use in the sample code.
+Now that we have our development environment setup we need to setup an account on The Things Network (if you don't have one already) and then create an application and register our device.  Follow the instructions here https://www.thethingsnetwork.org/docs/devices/node/quick-start.html#get-your-device-eui thru **Register your Device**.  After doing this your device will be registered on The Things Network and you should have both an App EUI and a App Key.  If you look at the bottom of the device information page you should see EXAMPLE CODE you can copy the code in the text box for use in the sample code.
 
 ![Example code](https://github.com/firedog1024/TheThingsNetwork-with-Azure-IoT-Central/raw/master/assets/examplecode.png)
 
@@ -70,7 +70,7 @@ The code is now executing on the device and should be sending data to The Things
 
 ![Raw data flow](https://github.com/firedog1024/TheThingsNetwork-with-Azure-IoT-Central/raw/master/assets/data-raw.png)
 
-note that the payload is not being decoded into human readable values and is just shown as it's byte array representation.  If we click on one of the lines we can see that there is nothing in the Fields section as the again the data is not being decoded.
+note that the payload is not being decoded into human readable values and is just shown as it's byte array representation.  If we click on one of the lines we can see that there is nothing in the Fields section as again the data is not being decoded.
 
 ![Raw data detail](https://github.com/firedog1024/TheThingsNetwork-with-Azure-IoT-Central/raw/master/assets/data-raw-detail.png)
 
@@ -126,7 +126,7 @@ We can test the decoder by pasting in one of the raw payloads from the "Data" ta
 
 ![Payload formating](https://github.com/firedog1024/TheThingsNetwork-with-Azure-IoT-Central/raw/master/assets/payload-format.png)
 
-Returning back to the "Data" tab you should also that the data payloads are now being correctly decoded using the decoder function, and expanding one of them will show the "Fields" being correctly displayed.
+Returning back to the "Data" tab you should also see that the data payloads are now being correctly decoded using the decoder function, and expanding one of them will show the "Fields" being correctly displayed.
 
 ![Payload detail fields formatted](https://github.com/firedog1024/TheThingsNetwork-with-Azure-IoT-Central/raw/master/assets/payload-detail-fields.png)
 
@@ -157,7 +157,7 @@ Go to https://apps.azureiotcentral.com/ to create an application (you will need 
 
 You should now have an IoT Central application provisioned but it's completely empty.  We need to add a device template for our Things Node device.  On the Homepage click the "Create Device Template", provide a suitable name and click "Create".
 
-This will create a blank device template and a simulated device that will send simulated data that you add to the device template.  We need to add telemetry fields, State fields, and Event fields.  To add each of these click the "Edit Template" button in the top right, then click the "+ New Measurement" button.  You can now add a new telemetry, State, or Event measure.  Add the following to the template.
+This will create a blank device template and a simulated device that will send simulated data representing what you add to the device template.  We need to add telemetry fields, State fields, and Event fields.  To add each of these click the "Edit Template" button in the top right, then click the "+ New Measurement" button.  You can now add a new telemetry, State, or Event measure.  Add the following to the template.
 
 #### Telemetry:
 
@@ -181,6 +181,7 @@ This will create a blank device template and a simulated device that will send s
 #### State:
 
 First State:
+
 | Display name | Display Name |
 |---|---|
 | Moving/Stopped | isMoving |
@@ -193,6 +194,7 @@ Values:
 | stopped | Stopped |
 
 Second State:
+
 | Display name | Display Name |
 |---|---|
 | Temperature | tempAlert |
@@ -338,72 +340,3 @@ Thats it you have connected a Things Node to The Things Network and connected it
 * Modify the IoT Central Bridge's Azure function to send more telemetry items to IoT central
 * Modify the decoder function on The Things Network application to send a different payload.
 * Be creative and if you create something cool share the code on Github.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
