@@ -207,13 +207,13 @@ Values:
 | critical | Critical |
 | normal | Normal |
 
-For more information on setting up a device template you can read the full documentation here https://docs.microsoft.com/en-us/azure/iot-central/howto-set-up-template. We should now have a device template and a simulated device that is sending conforming data to the template and we can see that data plotted on the screen.  Finalize the template by clicking on the "Done" button at the top of the graph.
+For more information on setting up a device template you can read the full documentation here https://docs.microsoft.com/en-us/azure/iot-central/howto-set-up-template. We should now have a device template and a simulated device that is sending data to your application, and see the data plotted on the screen.  Finalize the template by clicking on the "Done" button at the top of the graph.
 
 ![IoT Central template editing](https://github.com/firedog1024/TheThingsNetwork-with-Azure-IoT-Central/raw/master/assets/template.png)
 
 ### Connecting The Things Network and Azure IoT Central applications
 
-We now have a Things Network application and a IoT central application up and running but we need to connect the two together.  This is where the Azure IoT Central Device Bridge comes in.  The bridge connects another system to IoT Central via a simple webhook model (https://en.wikipedia.org/wiki/Webhook).  The Azure IoT Central Device Bridge can be found on github here https://github.com/Azure/iotc-device-bridge.  Follow the instructions to deploy the bridge, return back here after you have deployed the bridge and we will configure the Azure function.
+We now have a Things Network application and a IoT central application up and running but we need to connect the two together.  This is where the Azure IoT Central Device Bridge comes in.  The bridge connects a 3rd party system to IoT Central via a simple webhook model (https://en.wikipedia.org/wiki/Webhook).  The Azure IoT Central Device Bridge can be found on github here https://github.com/Azure/iotc-device-bridge.  Follow the instructions to deploy the bridge, return back here after you have deployed the bridge and we will configure the Azure function.
 
 ### Configure the IoT Central Device Bridge function
 
@@ -236,21 +236,21 @@ The resulting function should look like this in the Azure portal function editor
 
 ### Hook the bridge to The Things Network application
 
-This is the penultimate step to make data flow.  Return to your TTN application and go to the "Integrations" tab.  Click the "+ add integration" button and select the "HTTP Integration".  In the URL paste in the URL of your Azure function we just edited, and change the Method to "POST".  Click "Save" and you have connected your Things Network application to Azure IoT central.  Each time a payload comes into The Things Network it will be forwarded to Azure IoT Central.  The first time a device is new device comes online and sends data IoT Central will recognize that the device is new and create a new device for your in IoT Central application.  Return to your IoT Central application and click on the "Device Explorer" icon on the left hand side of the window.  Now click "Unassociated devices" and you should see your device listed, if you do not see your device click the devices button or give it a shake so it sends some data and then refresh browser.  Once the device shows up click the checkbox next to it and then the "Associate" icon on the toolbar.
+We are on the final couple of steps to making data flow seemlessly from The Things Network to Azure IoT Central.  Return to your TTN application and go to the "Integrations" tab.  Click the "+ add integration" button and select the "HTTP Integration".  In the URL paste in the URL of your Azure function we just edited, and change the Method to "POST".  Click "Save" and you have connected your Things Network application to Azure IoT central.  Each time a payload comes into The Things Network it will be forwarded to your Azure IoT Central application.  The first time a new device comes online and sends data your IoT Central application the system recognizes that the device is new and creates a new device for your in IoT Central application.  Return to your IoT Central application and click on the "Device Explorer" icon on the left hand side of the window.  Now click "Unassociated devices" and you should see your device listed, if you do not see your device click the devices button or give it a shake so it sends some data and then refresh the browser (never hurts to refresh the browser to be sure).  Once the device shows up click the checkbox next to it and then the "Associate" icon on the toolbar.
 
 ![Azure IoT Central device association](https://github.com/firedog1024/TheThingsNetwork-with-Azure-IoT-Central/raw/master/assets/associate.png)
 
 We need to tell IoT Central what template to associate with this device so in the popup dialog select the device template you created earlier from the dropdown box and click "Associate".  Azure IoT Central will then create the device and associate it with the device template and it will disappear from the unassociated devices list.
 
-Click the template name you created earlier in the left hand rail and you should see the device listed below the simulated device.  If you click on the device you should start to see data on the graph after a minute or so.
+Click the template name you created earlier in the left hand rail and you should see the new device listed below the simulated device.  If you click on the device you should start to see data on the graph after a minute or so.
 
 ![Azure IoT Central data flowing](https://github.com/firedog1024/TheThingsNetwork-with-Azure-IoT-Central/raw/master/assets/data-flowing.png)
 
 ## Troubleshooting
 
-There could be an error in several places as we are making three pieces of software interact.  Here is my debugging work flow from device to IoT Central.
+There could be issues and errors in several places since we are making three pieces of software interact.  Here is my debugging work flow from device to Azure IoT Central.
 
-1. Is the data being sent from the device.  Open up the Serial Monitor in the Arduino IDE (baud rate:57600) and make sure that when you click the button data gets sent, the device may have gone inactive after a period of time to save battery. You should see something similar to below.  If you do not see data flowing then recompile the code and upload to the device and check that the right device type and port are selected.
+1. Is the data being sent from the device.  Open up the Serial Monitor in the Arduino IDE (baud rate:57600) and make sure that when you click the button data gets sent, the device may have gone inactive after a period of time to save battery. You should see something similar to the below output.  If you do not see data flowing then recompile the code and upload to the device and check that the right device type and port are selected.
 
     ```
     -- SEND: BUTTON (duration:  299ms)
@@ -295,13 +295,13 @@ There could be an error in several places as we are making three pieces of softw
     Sending: sys sleep 60000
     ```  
 
-2. Make sure that the data is getting to The Things Network application.  Check the "Data" tab to make sure data shows up and is being decoded correctly.  If no data is flowing make sure you have registered the device with your application and changed the appEUI and appKey in the Arduino code to the right values for your application.  
+2. Make sure that the data is getting to The Things Network application.  Go to The Things Network application console and look at the "Data" tab to make sure data shows up and is being decoded correctly.  If no data is flowing make sure you have registered the device with your application and changed the appEUI and appKey in the Arduino code to the right values for your application.  
 
-    If the fields are corrupted or empty then there could be an issue twith the decoder function.  Go to the "Payload Formats" tab and paste a raw payload into the payload text box and click the "Test" button.  Did it decode correctly?  If not then debug the decoder function until you get the desired output.
+    If the fields are corrupted or empty then there could be an issue with the decoder function.  Go to the "Payload Formats" tab and paste a raw payload into the payload text box and click the "Test" button.  Did it decode correctly?  If not then debug the decoder function until you get the correct output.
 
-3. Make sure you have an HTTP integration setup and configured correctly in the "Integrations" tab. This is needed to send the data to the Azure function for the Azure IoT Central Device Bridge, check the URL is correct and that the Method is set to "POST".
+3. Make sure you have an HTTP integration setup and it's configured correctly in the "Integrations" tab. This is needed to send the data to the Azure function for the Azure IoT Central Device Bridge, check the URL is correct and that the Method is set to "POST".
 
-4. Go to the Azure function in the Azure portal and click the "Logs" button at the bottom of the window.  Every time the device sends data you should see messages output to the log.  
+4. Go to the Azure function in the Azure portal and click the "Logs" button at the bottom of the window.  Every time the device sends data you should see messages outputed to the log.  
     ```
     2019-01-23T19:05:03  Welcome, you are now connected to log-streaming service.
     2019-01-23T19:05:10.353 [Information] Executing 'Functions.IoTCIntegration' (Reason='This function was programmatically called via the host APIs.', Id=389283b6-7371-447d-b456-dd9c9809fc7d)
@@ -323,12 +323,12 @@ There could be an error in several places as we are making three pieces of softw
     ```
 5. In your Azure IoT Central application make sure you have associated the device with a device template and the device is not stuck in the unassociated state awiting your approval.  Assuming you have associated but are not seeing all your data make sure you have clicked the eyeballs next to the measures so they are displayed on the graph.  Currently the selection of eyeballs is not preserved as state so you have to keep clicking them, bug fix coming shortly I hear :-)
 
-Thats my list of troubleshooting steps, I'll update this further if I see people file Github issues having specific areas of difficulty.  The Github Issues area is also a great place to see if anyone else has had a similar issue to yours and either pile on the issue or see if has a resolution.  I'll try to be proactive on keeping up on issues.
+Thats my list of troubleshooting steps, I'll update this further if I see people filing Github issues and having common areas of difficulty.  The Github Issues area is also a great place to see if anyone else has had a similar issue to yours and either pile on the issue or see if it has a resolution.  I'll try to be proactive on keeping up on issues.
     
 
 ## What now?
 
-Thats it you have connected a Things Node to The Things Network and connected it to an Azure IoT Central application with just a few lines of code.  You now have all the power of Azure IoT Central at your disposal.  so you can:
+Thats it you have connected a device to The Things Network and connected it to an Azure IoT Central application with just a few lines of code.  You now have all the power of Azure IoT Central at your disposal.  So you can:
 * Set rules and actions using Microsoft Flow (https://docs.microsoft.com/en-us/azure/iot-central/howto-add-microsoft-flow) or Azure Logic Apps (https://docs.microsoft.com/en-us/azure/iot-central/howto-build-azure-logic-apps)
 * Visualize your data in Power BI (https://docs.microsoft.com/en-us/azure/iot-central/howto-connect-powerbi)
 * Pipe data to other Azure Services via IoT Central data export (https://docs.microsoft.com/en-us/azure/iot-central/howto-export-data)
